@@ -1,7 +1,9 @@
 (function() {
 "use strict";
 
-//Задача 1 - Получить сумму кубов первых n натуральных чисел
+/* ------------------------------- МАССИВЫ ------------------------------- */
+
+//ЗАДАЧА 1 - Получить сумму кубов первых n натуральных чисел
 function sumСubes(arr, n) {
 	var arr_natural = [],
 		result = 0;
@@ -19,7 +21,9 @@ function sumСubes(arr, n) {
 		return result;
 	}
 };
-/* Задача 2 - Ввести строку, состоящую из нескольких слов, разделенных пробелами.
+
+
+/* ЗАДАЧА 2 - Ввести строку, состоящую из нескольких слов, разделенных пробелами.
               Нарезать строку в массив по словам и вывести ее поэлементно – по
               одному слову в строке. */
 function arrWords(str) {
@@ -31,7 +35,9 @@ function arrWords(str) {
 	console.log(newLineStr);
 };
 
-//Задача 3 - Создать массив из n случайных чисел от 0 до 10 вывести его
+
+
+//ЗАДАЧА 3 - Создать массив из n случайных чисел от 0 до 10 вывести его
 function arrRandom(n) {
 	if(typeof n === "number") {
 		let mass = [];
@@ -44,7 +50,9 @@ function arrRandom(n) {
 	}
 };
 
-//Задача 4 - Создать множество из n случайных чисел от 0 до 10 вывести его (использую MAP)
+
+
+//ЗАДАЧА 4 - Создать множество из n случайных чисел от 0 до 10 вывести его (использую MAP)
 function arrRandomMap(n) {
     if(typeof n === "number") {
 		let arr_map = new Map(),
@@ -60,10 +68,13 @@ function arrRandomMap(n) {
         return alert('n - должно быть числом, а не вот это вот - "' + n +'"');
     }
 };
-/* Задача 5 - Построить Треугольник Паскаля до n-й строки.
+
+
+
+/* ЗАДАЧА 5 - Построить Треугольник Паскаля до n-й строки.
 			  a. В обе стороны (возрастающей и нисходящей
 			  b. Отцентрированный, а не прижатый к краю консоли. */
-
+  
 // возрастающий
 function trnglPascalInc(rows) {
 	let arrPascal = new Array();
@@ -79,6 +90,7 @@ function trnglPascalInc(rows) {
 	}
 	return arrPascal;
 };
+
 // нисходящий
 function trnglPascalDes(rows) {
     let arrPascal = new Array();
@@ -94,8 +106,28 @@ function trnglPascalDes(rows) {
     }
     return arrPascal.reverse();
 };
-/*
-/* Задача 7 - Получить на ввод количество рублей и копеек и вывести в правильной
+
+
+/* ЗАДАЧА 6 - Колхозница привезла на рынок для продажи корзину яиц. Продавала
+			  она их по одной и той же цене. После продажи колхозница пожелала
+			  проверить, верно ли она получала деньги. Но вот беда: она забыла,
+			  сколько у нее было яиц. Вспомнила она только, что когда
+			  перекладывала яйца по 2, то оставалось одно яйцо; одно яйцо
+			  оставалось также при перекладывании яиц по 3, по 4, по 5 и по 6. Когда
+			  же она перекладывала яйца по 7, то не оставалось ни одного.
+		      Помоги колхознице сообразить, сколько у нее было яиц. */
+			  
+function farmerAndHerEggs() {
+	let eggs = 7;
+	while (!(eggs%7 === 0 && eggs%2 === 1 && eggs%3 === 1 && eggs%4 === 1 && eggs%5 === 1 && eggs%6 === 1)) {
+		eggs+=7;
+	}
+	return alert("У колхознице было " + eggs + " яиц");
+}
+
+
+
+/* ЗАДАЧА 7 - Получить на ввод количество рублей и копеек и вывести в правильной
 			  форме в виде текста, например, три рубля, одиннадцать рублей
 			  тридцать пять копеек, двадцать две копейки. */
 
@@ -125,6 +157,121 @@ function moneyConvert(numbMoney) {
 	return result;
 };
 
+
+
+/* ЗАДАЧА 8 - Заданы день и месяц рождения, а также текущие день
+			  Определить, сколько дней осталось до дня рождения. */		  
+function birthDay() {
+	var month = +prompt("Введите месяц рождения (чило)");
+	var day = +prompt("Введите день рождения (чило)");
+	if((month == "" || day == "") || (month == null || day == null) || (month == undefined || day == undefined)) {
+		return "Где-то Вы ввели пустое значение... ";
+	} else if (isNaN(month) || isNaN(day)) {
+		return "Где-то Вы ввели не числовое значение... ";
+	} else if(month < 1 || month > 12) {
+		return "Месяц должен быть числом от 1 до 12";
+	} else {
+		month = month+'';
+		day = day+'';
+		if(month.length >= 3 || day.length >= 3) {
+			return "Недопустипая длина (уж слишком длинноооо)... ";
+		} else {
+			var limit_day = false;
+			if(month == 1 || month == 3 || month == 5 || month === 7 || month == 8 || month == 10 || month == 12) {
+				limit_day = (day>0 && day <= 31) ? true : false;
+			} else if (month == 4 || month == 6 || month == 9 || month == 11) {
+				limit_day = (day>0 && day <= 30) ? true : false;
+			} else if (month == 2) {
+				limit_day = (day>0 && day <= 28) ? true : false;
+			} 
+			if (limit_day) {
+				var nowDate = new Date();
+				if((nowDate.getMonth()-1 <= month) && (nowDate.getDate() <= day)) {
+					var year = nowDate.getFullYear();
+				} else {
+					var year = nowDate.getFullYear()+1;
+				}
+				your_data = year +'.'+ month +'.'+ day;
+				var your_data = new Date(your_data);
+				var result = Math.round((your_data.getTime()-nowDate.getTime()) / (1000*60*60*24));
+				if(result == -1) {
+					return "У вас сегодня ДР!";
+				} else {
+					return "Дней до Вашего ДР осталось: " + result;	
+				}
+			} else {
+				return "Недопустимый дневной деапозон месяца";
+			}
+		}
+	}		
+}
+
+
+/* ------------------------------- ОБЪЕКТЫ ------------------------------- */
+
+/* ЗАДАЧА 1 - Сравнить два объекта:
+				a. С учётом «ключей» и значений свойств
+				b. Без учёта «ключей» 
+				c. Без учёта порядка значений свойств объекта */
+
+				
+var obj = {
+	age: 22,
+	name: "John",
+	ids: 3
+};
+var obj2 = {
+	age: 22,
+	name: "John",
+	id: 5
+};
+var obj3 = {
+	age: 22,
+	'id': 5,
+	name: "John"
+};	
+// version A
+
+function comparisonObjectsA(obj, obj2) {
+	let res = "";
+	for(let key in obj) {
+		for(let key2 in obj2) {
+			if (key === key2) {
+				if(obj[key] !== obj2[key2]) {
+					res += " по ключу " + key + ' объекты не равны!'+' \n';
+				}
+			}
+		}
+	}
+	if (res == "") {
+		res = "Объекты одинаковые";
+	}
+	return res;
+}
+/*
+function comparisonObjectsB(obj, obj2) {
+	let res = "";
+	if() {
+		
+	}
+	
+	
+	for(let key in obj) {
+		for(let key2 in obj2) {
+			if(obj[key] != obj2[key]) {
+				res += "не равны совойства " + obj[key] + ' и ' + obj2[key] +' \n';
+				break;
+			}
+		}
+	}
+	if (res == "") {res = "Объекты одинаковые";}
+	return res;
+}
+*/
+
+
+console.log(comparisonObjectsB(obj, obj2));		
+				
 /* DOM version
 document.addEventListener('DOMContentLoaded', function(){ 
 	var d = document;
