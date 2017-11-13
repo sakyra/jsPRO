@@ -217,60 +217,80 @@ function birthDay() {
 				
 var obj = {
 	age: 22,
-	name: "John",
-	ids: 3
+    aaa: 55,
+	name: 55
+
 };
 var obj2 = {
 	age: 22,
-	name: "John",
-	id: 5
+	nassme: "John",
+    aaa: 55
 };
 var obj3 = {
 	age: 22,
-	'id': 5,
+	'id': "5",
 	name: "John"
-};	
-// version A
+};
 
+// version A и С
 function comparisonObjectsA(obj, obj2) {
 	let res = "";
-	for(let key in obj) {
-		for(let key2 in obj2) {
-			if (key === key2) {
-				if(obj[key] !== obj2[key2]) {
-					res += " по ключу " + key + ' объекты не равны!'+' \n';
-				}
-			}
-		}
-	}
-	if (res == "") {
-		res = "Объекты одинаковые";
-	}
+	if(Object.keys(obj).length === Object.keys(obj2).length) {
+        for(let key in obj) {
+            for(let key2 in obj2) {
+                if (key === key2) {
+                    if(obj[key] !== obj2[key2]) {
+                        res += " по ключу " + key + ' объекты не равны!'+' \n';
+                    }
+                }
+            }
+        }
+        if (res == "") {
+            res = "Объекты одинаковые";
+        } else {
+            res += "Поэтому эти обеъекты НЕ равны!";
+        }
+    } else {
+	    res = "Эти объеты разной длины, они не могут быть одинаковыми!";
+    }
 	return res;
 }
-/*
+
 function comparisonObjectsB(obj, obj2) {
 	let res = "";
-	if() {
-		
-	}
-	
-	
-	for(let key in obj) {
-		for(let key2 in obj2) {
-			if(obj[key] != obj2[key]) {
-				res += "не равны совойства " + obj[key] + ' и ' + obj2[key] +' \n';
-				break;
-			}
-		}
-	}
-	if (res == "") {res = "Объекты одинаковые";}
+    let prop_obj = "";
+    let bool = false;
+    if (Object.keys(obj).length !== Object.keys(obj2).length) {
+        res = "Эти объеты разной длины, они не могут быть одинаковыми!";
+    } else {
+        for (let key in obj) {
+            prop_obj = obj[key];
+            for (let key2 in obj2) {
+                if (prop_obj !== obj2[key2] ) {
+                    bool = false;
+                } else if (obj2[key2] === prop_obj)  {
+                    bool = true;
+                    break;
+                }
+
+            }
+
+            if(bool === false) {
+               res += 'Во втором объекте нет свойства ' + prop_obj + ' \n';
+            }
+
+        }
+        if (res == "") {
+            res = "Объекты одинаковые";
+        } else {
+            res += "Поэтому эти обеъекты НЕ равны!";
+        }
+    }
 	return res;
 }
-*/
 
 
-console.log(comparisonObjectsB(obj, obj2));		
+console.log(comparisonObjectsA(obj, obj2));
 				
 /* DOM version
 document.addEventListener('DOMContentLoaded', function(){ 
