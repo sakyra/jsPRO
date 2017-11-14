@@ -214,25 +214,8 @@ function birthDay() {
 				b. Без учёта «ключей» 
 				c. Без учёта порядка значений свойств объекта */
 
-				
-var obj = {
-	age: 22,
-    aaa: 55,
-	name: 55
 
-};
-var obj2 = {
-	age: 22,
-	nassme: "John",
-    aaa: 55
-};
-var obj3 = {
-	age: 22,
-	'id': "5",
-	name: "John"
-};
-
-// version A и С
+// version A (с проверкой на свойства - "массив", на эту проверку реализация ниже, что бы не плодить дубли)
 function comparisonObjectsA(obj, obj2) {
 	let res = "";
 	if(Object.keys(obj).length === Object.keys(obj2).length) {
@@ -256,32 +239,77 @@ function comparisonObjectsA(obj, obj2) {
 	return res;
 }
 
+// version B и С (с проверкой на свойства - "массив")
 function comparisonObjectsB(obj, obj2) {
 	let res = "";
     let prop_obj = "";
     let bool = false;
+	let arr_bool = false;
     if (Object.keys(obj).length !== Object.keys(obj2).length) {
         res = "Эти объеты разной длины, они не могут быть одинаковыми!";
     } else {
         for (let key in obj) {
             prop_obj = obj[key];
             for (let key2 in obj2) {
-                if (prop_obj !== obj2[key2] ) {
-                    bool = false;
-                } else if (obj2[key2] === prop_obj)  {
-                    bool = true;
-                    break;
-                }
-
+				//проверка на массив	
+				if(prop_obj instanceof Array && obj2[key2] instanceof Array) {
+					for(let i=0; i<obj[key].length; i++) {
+						if(obj[key][i] !== obj2[key2][i]) {
+							arr_bool = false; 
+							break;
+						} else {
+							arr_bool = true;
+						}
+					}
+				} else if(prop_obj instanceof Array === false) {	
+					if (prop_obj != obj2[key2] ) {
+						bool = false;
+					} else if (obj2[key2] === prop_obj)  {
+						bool = true;
+						break;
+					}		
+				} 			
             }
-
-            if(bool === false) {
-               res += 'Во втором объекте нет свойства ' + prop_obj + ' \n';
-            }
-
+			if ((prop_obj instanceof Array) && (arr_bool===false)) {
+				res += 'Во втором объекте нет свойства массива ' + prop_obj + ' \n';
+			} else if((bool===false) && (arr_bool===false)) {
+				res += 'Во втором объекте нет свойства ' + prop_obj + ' \n';
+			}
         }
+		
+		arr_bool = false;
+		bool = false;
+		
+        for (let key2 in obj2) {
+            prop_obj = obj2[key2];
+            for (let key in obj) {
+				//проверка на массив	
+				if(prop_obj instanceof Array && obj[key] instanceof Array) {
+					for(let i=0; i<obj2[key2].length; i++) {
+						if(obj2[key2][i] !== obj[key][i]) {
+							arr_bool = false; 
+							break;
+						} else {
+							arr_bool = true;
+						}
+					}
+				} else if(prop_obj instanceof Array === false) {	
+					if (prop_obj != obj[key] ) {
+						bool = false;
+					} else if (obj[key] === prop_obj)  {
+						bool = true;
+						break;
+					}		
+				} 			
+            }
+			if ((prop_obj instanceof Array) && (arr_bool===false)) {
+				res += 'Во первом объекте нет свойства массива ' + prop_obj + ' \n';
+			} else if((bool===false) && (arr_bool===false)) {
+				res += 'Во первом объекте нет свойства ' + prop_obj + ' \n';
+			}
+        }		
         if (res == "") {
-            res = "Объекты одинаковые";
+            res = "По свойствам объекты одинаковые";
         } else {
             res += "Поэтому эти обеъекты НЕ равны!";
         }
@@ -289,10 +317,9 @@ function comparisonObjectsB(obj, obj2) {
 	return res;
 }
 
-
-console.log(comparisonObjectsA(obj, obj2));
 				
-/* DOM version
+/* ------------- DOM VERSION (уродливая версия без прелестей CSS) ---------------*/
+// Задача 1	
 document.addEventListener('DOMContentLoaded', function(){ 
 	var d = document;
 	var btn_addElem = d.getElementById('btn_addElem');
@@ -300,6 +327,8 @@ document.addEventListener('DOMContentLoaded', function(){
 	var size_mass = d.getElementById('size_mass');
 	var control_block = d.getElementById('control_block');
 	var send = d.getElementById('send');
+	var bottom_bl = d.getElementById('bottom_bl');
+	var text_elem = d.getElementById('text_elem');
 
 	function sumСubes(arr, n) {
 		var arr_natural = [],
@@ -323,40 +352,50 @@ document.addEventListener('DOMContentLoaded', function(){
 		massBlock.innerHTML = "";
 		size_mass.className = "show";
 		btn_addElem.className = "show";
+		bottom_bl.className = "hide";
+		text_elem.className = "hide";
 		this.parentNode.removeChild(this);
 	}	
 	
     btn_addElem.onclick = function() {
 		var sizeMass = size_mass.value;
-		if(sizeMass !== "") {
+		if(sizeMass !== "" && sizeMass<=100 && sizeMass>0) {
 			for(let i=0; i<sizeMass; i++) {
 				massBlock.innerHTML += '<input class="smallInp">';
 			}
 			size_mass.className = "hide";
 			btn_addElem.className = "hide";
+			text_elem.className = "show";
 			var btn_clear = d.createElement('button');
 			btn_clear.id = 'clearArr';
 			btn_clear.innerHTML += 'Удалить текущий массив';
 			control_block.appendChild(btn_clear);
 			var clearArr = d.getElementById('clearArr');
 			clearArr.addEventListener('click', clearElements, false); //повесить функцию очистки текущего массива	
+			bottom_bl.className = "show";
 		} else {
-			alert("Нужно ввести число!");
+			alert("Нужно ввести подходящее значение!");
 		}
     }
+	
+	send.onclick = function(e) {
+		let n = natural_size.value;	
+		if(n !== "") {
+			var smallInp = document.getElementsByClassName('smallInp');
+			var arr = [];
+			for(let i=0; i < smallInp.length; i++) {
+				arr[i] = +smallInp[i].value;
+			}			
+			alert(sumСubes(arr, n));
+		} else {
+			alert("Пустое значение n");
+		}
 
-	send.onclick = function() {
-		var smallInp = document.getElementsByClassName('smallInp');
-		var arr = [];
-		for(let i=0; i < smallInp.length; i++) {
-			arr[i] = +smallInp[i].value;
-			console.log(arr);
-		}	
-		var n = natural_size.value;	
-		alert(sumСubes(arr, n));
-	}
+		
+	}	
+
 });
-*/
+
 
 })();
 
