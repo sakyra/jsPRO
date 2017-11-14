@@ -241,10 +241,10 @@ function comparisonObjectsA(obj, obj2) {
 
 // version B и С (с проверкой на свойства - "массив")
 function comparisonObjectsB(obj, obj2) {
-	let res = "";
-    let prop_obj = "";
-    let bool = false;
-	let arr_bool = false;
+	let res = "",
+		prop_obj = "",
+		bool = false,
+		arr_bool = false;
     if (Object.keys(obj).length !== Object.keys(obj2).length) {
         res = "Эти объеты разной длины, они не могут быть одинаковыми!";
     } else {
@@ -317,18 +317,18 @@ function comparisonObjectsB(obj, obj2) {
 	return res;
 }
 
-				
+			
 /* ------------- DOM VERSION (уродливая версия без прелестей CSS) ---------------*/
 // Задача 1	
 document.addEventListener('DOMContentLoaded', function(){ 
-	var d = document;
-	var btn_addElem = d.getElementById('btn_addElem');
-	var massBlock = d.getElementById('massBlock');
-	var size_mass = d.getElementById('size_mass');
-	var control_block = d.getElementById('control_block');
-	var send = d.getElementById('send');
-	var bottom_bl = d.getElementById('bottom_bl');
-	var text_elem = d.getElementById('text_elem');
+	var d = document,
+		btn_addElem = d.getElementById('btn_addElem'),
+		massBlock = d.getElementById('massBlock'),
+		size_mass = d.getElementById('size_mass'),
+		control_block = d.getElementById('control_block'),
+		send = d.getElementById('send'),
+		bottom_bl = d.getElementById('bottom_bl'),
+		text_elem = d.getElementById('text_elem');
 
 	function sumСubes(arr, n) {
 		var arr_natural = [],
