@@ -66,6 +66,10 @@ ul#list li {
 	line-height: 18px;
 }
 
+ul#list li  span{
+	color: #D77206;
+}
+
 #result {
 	margin-left: 20px;
 	display: inline-block;
