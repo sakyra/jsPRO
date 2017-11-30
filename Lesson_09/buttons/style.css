@@ -1,0 +1,68 @@
+body {
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+}
+h3 {
+	color: #3a3a3a;
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	margin-bottom: 15px;
+}
+
+.box {
+	width: 250px;
+	float: left;
+}
+
+#clearTxt, #clearTxtC {
+	display: block;
+	height: 20px;
+	margin: 0px 0px 5px;
+	font-size: 12px;
+}
+
+button.disabled {
+	opacity:0.6;
+}
+button.disabled:hover {
+	cursor:not-allowed;
+	opacity:0.6;
+}
+button.big {
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+    padding: .8em 1em calc(.8em + 3px);
+    border-radius: 3px;
+    background: #40c781;
+    box-shadow: 0 -3px #35a70b inset;
+    transition: 0.2s;
+	min-width: 180px;
+	margin-bottom: 10px;
+}
+
+button.big.off {
+    background: #d42d2d;
+    box-shadow: 0 -3px #a70b0b inset;	
+}
+
+button:hover {
+	cursor: pointer;
+	opacity: 0.9;
+}
+
+input {
+	width: 100px;
+	padding: 5px 4px;
+	border: 1px solid #8e8e8e;
+}
+input.smallC {
+	width: 23px;
+}
+
+button.small {
+  background: #8e8e8e;
+  color: #fff;
+  padding: 5px 8px;
+  border: 1px solid #8e8e8e;
+  box-shadow: none;
+}
