@@ -44,7 +44,10 @@ document.addEventListener('DOMContentLoaded', function(){
 					btn_c.classList.add("off");
 					btn_c.disabled = false;
 					btn_c.classList.remove("disabled");
+					localStorage.removeItem('min');
+					localStorage.removeItem('sec');
 					clearTimeout(timerId);
+
 				} else {
 					if(sec == 00) {
 						sec = 59;
@@ -119,9 +122,9 @@ document.addEventListener('DOMContentLoaded', function(){
 	});	
 
 	resetBtnC.addEventListener( "click" , function() {
-		var minVal = minInp.value;
-		var secVal = secInp.value;
-		tick(minVal, secVal);
+		var minVals = minInp.value;
+		var secVals = secInp.value;
+		tick(minVals, secVals);
 	});	
 	
 	
@@ -151,13 +154,13 @@ document.addEventListener('DOMContentLoaded', function(){
 		let cls = localStorage.getItem('classList-c');
 		btn_c.className = cls;	
 	}	
+	
 	if(localStorage.getItem('min')!==null && localStorage.getItem('sec')!==null) {
 		let min = localStorage.getItem('min');
 		let sec = localStorage.getItem('sec');
-		clearTxtC.innerHTML = "Кнопка сброситься через: <b>"+min+":"+sec+"</b>";
 		tick(min, sec);
 	}	
-	
+
 
 });	
 })();
