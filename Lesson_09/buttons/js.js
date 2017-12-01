@@ -30,13 +30,14 @@ document.addEventListener('DOMContentLoaded', function(){
 	
 //Функция тикания часов кнопки С 
 	function tick(minVal, secVal) {
-		if((secVal !== '') && (minVal.length <= 2) && (secVal.length <= 2)) {
+		if((secVal !== '') && (minVal.length <= 2) && (secVal.length <= 2) && (minVal.length != 1) && (secVal.length != 1)) {
 			btn_c.disabled = true;
 			btn_c.classList.add("disabled");
 			var min = +minVal;
-			if (min<10 || min.length == 1) min = '0' + min;
+			console.log(typeof min);
+			if (min<10) min = '0' + min;
 			var sec = +secVal;
-			if(sec<10 || sec.length == 1)sec = '0' + sec;	
+			if(sec<10)sec = '0' + sec;	
 
 			var timerId = setInterval(function() {
 				if(sec == '00' && min == '00') {
@@ -66,12 +67,14 @@ document.addEventListener('DOMContentLoaded', function(){
 					}				
 					clearTxtC.innerHTML = "Кнопка сброситься через: <b>"+min+":"+sec+"</b>";
 					localStorage.setItem('min', min);
-					localStorage.setItem('sec', sec);
+					localStorage.setItem('sec', sec);					
 				}
 			}, 1000);		
 		} else {
-			alert("Пустое значение или более чем двухъзначное число в полях");
+			alert("Нужно вводить двухзначное число в каждое поле!");
 		}	
+		
+
 	}		
 	
 
@@ -124,6 +127,8 @@ document.addEventListener('DOMContentLoaded', function(){
 	resetBtnC.addEventListener( "click" , function() {
 		var minVals = minInp.value;
 		var secVals = secInp.value;
+		localStorage.removeItem('min');
+		localStorage.removeItem('sec');
 		tick(minVals, secVals);
 	});	
 	
@@ -156,9 +161,9 @@ document.addEventListener('DOMContentLoaded', function(){
 	}	
 	
 	if(localStorage.getItem('min')!==null && localStorage.getItem('sec')!==null) {
-		let min = localStorage.getItem('min');
-		let sec = localStorage.getItem('sec');
-		tick(min, sec);
+		var mins = localStorage.getItem('min');
+		var secs = localStorage.getItem('sec');
+		tick(mins, secs);
 	}	
 
 
