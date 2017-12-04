@@ -1,23 +1,23 @@
 (function() {
-//"use strict";
 
 document.addEventListener('DOMContentLoaded', function(){ 
-	var btn_a = document.getElementById('btn_a');
-	var btn_b = document.getElementById('btn_b');
-	var btn_c = document.getElementById('btn_c');
-	var resetBtn = document.getElementById('resetBtn');
-	var resetBtnC = document.getElementById('resetBtnC');
-	var resetInp = document.getElementById('resetInp');
-	var clearTxt = document.getElementById('clearTxt');
-	var clearTxtC = document.getElementById('clearTxtC');
-	var minInp = document.getElementById('minInp');
-	var secInp = document.getElementById('secInp');
-	var localStA;
-	var localStB;
-	var localStC;
-	var ClsNameA;
-	var ClsNameB;
-	var ClsNameC;
+	var btn_a = document.getElementById('btn_a'),
+		btn_b = document.getElementById('btn_b'),
+		btn_c = document.getElementById('btn_c'),
+		resetBtn = document.getElementById('resetBtn'),
+		resetBtnC = document.getElementById('resetBtnC'),
+		resetInp = document.getElementById('resetInp'),
+		clearTxt = document.getElementById('clearTxt'),
+		clearTxtC = document.getElementById('clearTxtC'),
+		minInp = document.getElementById('minInp'),
+		secInp = document.getElementById('secInp'),
+		localStA,
+		localStB,
+		localStC,
+		ClsNameA,
+		ClsNameB,
+		ClsNameC,
+    	timerId;
 	function toogle(self) {
 		if(self.innerHTML == "ON") {
 			self.innerHTML = "OFF";
@@ -27,19 +27,19 @@ document.addEventListener('DOMContentLoaded', function(){
 			self.classList.remove("off");
 		}
 	}
-	
+
 //Функция тикания часов кнопки С 
 	function tick(minVal, secVal) {
+        clearTimeout(timerId);
 		if((secVal !== '') && (minVal.length <= 2) && (secVal.length <= 2) && (minVal.length != 1) && (secVal.length != 1)) {
 			btn_c.disabled = true;
 			btn_c.classList.add("disabled");
 			var min = +minVal;
-			console.log(typeof min);
 			if (min<10) min = '0' + min;
 			var sec = +secVal;
 			if(sec<10)sec = '0' + sec;	
 
-			var timerId = setInterval(function() {
+			timerId = setInterval(function() {
 				if(sec == '00' && min == '00') {
 					btn_c.innerHTML = "OFF";	
 					btn_c.classList.add("off");
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 				} else {
 					if(sec == 00) {
-						sec = 59;
+						sec = 60;
 						if(min<=10) {
 							min--;
 							min = '0' + min;
@@ -72,11 +72,9 @@ document.addEventListener('DOMContentLoaded', function(){
 			}, 1000);		
 		} else {
 			alert("Нужно вводить двухзначное число в каждое поле!");
-		}	
-		
-
+            clearTxtC.innerHTML = "";
+		}
 	}		
-	
 
 	btn_a.addEventListener( "click" , function() {
 		toogle(this);
@@ -132,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function(){
 		tick(minVals, secVals);
 	});	
 	
-	
+
 	
 //получаем localStorage при загрузке страницы
 	if(localStorage.getItem('innerHTML-a')!==null) {
