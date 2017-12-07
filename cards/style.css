@@ -1,0 +1,32 @@
+body {
+	background:#006832;
+}
+.conteiner {
+	width: 1200px;
+	margin: 0 auto;
+}
+#deck div {
+	width: 110px;
+	height: 170px;
+	background: #fff;
+	padding: 5px 7px;
+	font-size: 20px;
+	font-weight: bold;
+	border-radius: 5px;
+	position: relative;
+	float: left;
+	/*margin: 10px;*/
+	margin-left: -90px;
+	border: #575757 1px solid;
+}
+.red {
+	color: #ff1a0f;
+}
+.black {
+	color: #121212;
+}
+.invert {
+	right: 7px;
+	bottom: 5px;
+	position: absolute;
+}
