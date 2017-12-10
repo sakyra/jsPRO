@@ -11,12 +11,6 @@ document.addEventListener('DOMContentLoaded', function(){
 		clearTxtC = document.getElementById('clearTxtC'),
 		minInp = document.getElementById('minInp'),
 		secInp = document.getElementById('secInp'),
-		localStA,
-		localStB,
-		localStC,
-		ClsNameA,
-		ClsNameB,
-		ClsNameC,
     	timerId;
 	function toogle(self) {
 		if(self.innerHTML == "ON") {
@@ -76,36 +70,25 @@ document.addEventListener('DOMContentLoaded', function(){
 		}
 	}		
 
-	btn_a.addEventListener( "click" , function() {
-		toogle(this);
-		//запись localStorage для кнопки A
-		localStA = this.innerHTML;
-		localStorage.setItem('innerHTML-a', localStA);
-		ClsNameA = this.getAttributeNode('class');
-		ClsNameA = ClsNameA.value;
-		localStorage.setItem('classList-a', ClsNameA);
-
-	});
-
-	btn_b.addEventListener( "click" , function() {
-		toogle(this);
-		//запись localStorage для кнопки B
-		localStB = this.innerHTML;
-		localStorage.setItem('innerHTML-b', localStB);
-		ClsNameB = this.getAttributeNode('class');
-		ClsNameB = ClsNameB.value;
-		localStorage.setItem('classList-b', ClsNameB);
-	});
-
-	btn_c.addEventListener( "click" , function() {
-		toogle(this);
-		//запись localStorage для кнопки C
-		localStC = this.innerHTML;
-		localStorage.setItem('innerHTML-c', localStC);
-		ClsNameC = this.getAttributeNode('class');
-		ClsNameC = ClsNameC.value;
-		localStorage.setItem('classList-c', ClsNameC);
-	});
+function btnFunc(self) {
+    toogle(self);
+    let localS = self.innerHTML;
+    let id = self.id;
+    console.log(id);
+    localStorage.setItem('innerHTML'+id, localS);
+    let ClsName = self.getAttributeNode('class');
+    ClsName = ClsName.value;
+    localStorage.setItem('classList'+id, ClsName);
+}
+btn_a.addEventListener( "click" , function() {
+    btnFunc(this);
+});
+btn_b.addEventListener( "click" , function() {
+	btnFunc(this);
+});
+btn_c.addEventListener( "click" , function() {
+	btnFunc(this);
+});
 
 	resetBtn.addEventListener( "click" , function() {
 		if(resetInp.value !== '') {
@@ -131,39 +114,80 @@ document.addEventListener('DOMContentLoaded', function(){
 	});	
 	
 
+/*
+	function getItems(localObj) {
+		if(localStorage.getItem('localObj')!==null) {
+			let innerL = localStorage.getItem('localObj');
+			btn_a.innerHTML = innerL;
+			switch (localObj) {
+				case 'innerHTMLbtn_a':
+					btn_a.innerHTML = innerL;
+					break;
+				case 'classListbtn_a':
+					btn_a.className = innerL;	
+					break;
+				case 'innerHTMLbtn_b':
+					btn_b.innerHTML = innerL;
+					break;
+				case 'classListbtn_b':
+					btn_b.className = innerL;
+					break;
+				case 'innerHTMLbtn_c':
+					btn_c.innerHTML = innerL;
+					break;
+				case 'classListbtn_c':
+					btn_c.className = innerL;
+					break;
+			  default:
+				break;
+			}
+		}		
+	}
+
+	getItems('innerHTMLbtn_a');
+	getItems('classListbtn_a');
+	getItems('innerHTMLbtn_b');
+	getItems('classListbtn_b');
+	getItems('innerHTMLbtn_c');
+	getItems('classListbtn_c');
+*/
 	
-//получаем localStorage при загрузке страницы
-	if(localStorage.getItem('innerHTML-a')!==null) {
-		let innerL = localStorage.getItem('innerHTML-a');
+//как было раньше
+	if(localStorage.getItem('innerHTMLbtn_a')!==null) {
+		let innerL = localStorage.getItem('innerHTMLbtn_a');
 		btn_a.innerHTML = innerL;
 	}
-	if(localStorage.getItem('classList-a')!==null) {
-		let cls = localStorage.getItem('classList-a');
+	if(localStorage.getItem('classListbtn_a')!==null) {
+		let cls = localStorage.getItem('classListbtn_a');
 		btn_a.className = cls;	
 	}
-	if(localStorage.getItem('innerHTML-b')!==null) {
-		let innerL = localStorage.getItem('innerHTML-b');
+	if(localStorage.getItem('innerHTMLbtn_b')!==null) {
+		let innerL = localStorage.getItem('innerHTMLbtn_b');
 		btn_b.innerHTML = innerL;
 	}
-	if(localStorage.getItem('classList-b')!==null) {
-		let cls = localStorage.getItem('classList-b');
+	if(localStorage.getItem('classListbtn_b')!==null) {
+		let cls = localStorage.getItem('classListbtn_b');
 		btn_b.className = cls;	
 	}
-	if(localStorage.getItem('innerHTML-c')!==null) {
-		let innerL = localStorage.getItem('innerHTML-c');
+	if(localStorage.getItem('innerHTMLbtn_c')!==null) {
+		let innerL = localStorage.getItem('innerHTMLbtn_c');
 		btn_c.innerHTML = innerL;
 	}
-	if(localStorage.getItem('classList-c')!==null) {
-		let cls = localStorage.getItem('classList-c');
+	if(localStorage.getItem('classListbtn_c')!==null) {
+		let cls = localStorage.getItem('classListbtn_c');
 		btn_c.className = cls;	
 	}	
-	
+
 	if(localStorage.getItem('min')!==null && localStorage.getItem('sec')!==null) {
 		var mins = localStorage.getItem('min');
 		var secs = localStorage.getItem('sec');
 		tick(mins, secs);
 	}	
 
+	
+	
+	
+	
 
 });	
 })();
